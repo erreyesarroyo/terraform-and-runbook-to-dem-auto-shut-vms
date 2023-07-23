@@ -1,0 +1,52 @@
+
+# Import the modules 
+try {
+Import-module 'az.accounts'
+Import-module 'az.compute'
+}
+
+catch {
+    Write-Error ("This module requires modules: az.accounts (5.1) and az.compute (5.1)")
+    exit}
+# Connect to Azure with the System Managed Identity
+Connect-AzAccount -Identity
+
+# Variables
+# Set the tag for the VM's to stop and the tag value. VMs are provisioned with terraform, but always consider spelling here and on the terraform code as these must be identical. 
+# VM's with matching tag and value, in the specified scope in the automation account will start or stop. The higher scope available is subscription. 
+$tag = "auto_stop"
+$tagValue = "on"
+
+# Function to stop the servers. Just to run the stop-vm command and forcing deallocation.
+function Stop-Vms {
+    param (
+        $vms
+    )
+    foreach ($vm in $vms) {
+        try {
+            # Stop the VM
+            $vm | Stop-AzVM -ErrorAction Stop -Force -NoWait
+        }
+        catch {
+            $ErrorMessage = $_.Exception.message
+            Write-Error ("Error stopping the VM: " + $ErrorMessage)
+            Break
+        }
+    }
+
+}  
+
+# Get the servers with the tag value specified above
+try {
+    $vms = Get-AzVM -ErrorAction Stop | Where-Object { $_.Tags[$tag] -eq $tagValue }
+#Write-output $vms
+}
+catch {
+    $ErrorMessage = $_.Exception.message
+    Write-Error ("Error returning the VMs: " + $ErrorMessage)
+    Break
+}
+# Output a short messages outlining the servers/vms stoped
+Write-output "Stopping the following servers:"
+Write-output $vms.Name
+Stop-Vms $vms
