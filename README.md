@@ -1,3 +1,5 @@
+az cloud set --name azureusgovernment 
+
 # terraform-and-runbook-to-dem-auto-shut-vms
 
 High level steps:
