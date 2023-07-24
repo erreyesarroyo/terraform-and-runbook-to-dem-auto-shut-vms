@@ -1,4 +1,9 @@
-az cloud set --name azureusgovernment 
+Lessons learned:
+command to access official stuff: az cloud set --name azureusgovernment 
+Error on official environment
+Error returning the VMs: 'this.Client.SubscriptionId' cannot be null.
+
+
 
 # terraform-and-runbook-to-dem-auto-shut-vms
 
