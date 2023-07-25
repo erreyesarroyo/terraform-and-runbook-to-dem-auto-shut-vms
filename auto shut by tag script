@@ -11,6 +11,10 @@ catch {
 # Connect to Azure with the System Managed Identity
 Connect-AzAccount -Identity
 
+# Set the subscription ID
+$targetSubscriptionId = "2xxxxxxe-xxxx-xxxx-afe6-xxxxxxxa0e98"
+Set-AzContext -SubscriptionId $targetSubscriptionId
+
 # Variables
 # Set the tag for the VM's to stop and the tag value. VMs are provisioned with terraform, but always consider spelling here and on the terraform code as these must be identical. 
 # VM's with matching tag and value, in the specified scope in the automation account will start or stop. The higher scope available is subscription. 
