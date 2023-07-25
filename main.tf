@@ -1,9 +1,10 @@
-#####Configure resources (three VMs on two subnets) to test the automation account->runbook in azure. May configure two if using limited account but it will show the runbook effects eitherway######
+###Ensure to uncheck and check properly, location in main.tf and provider.tf###
 
 # Resource Group
 resource "azurerm_resource_group" "rg" {
-  name     = "rg01"
-  location = "EAST US"
+  name = "rgReyes01"
+  #location = "USGov Virginia"
+  location = "East US"
 }
 
 # Virtual Network
@@ -71,7 +72,7 @@ resource "azurerm_windows_virtual_machine" "vm01" {
   name                  = "vm01"
   resource_group_name   = azurerm_resource_group.rg.name
   location              = azurerm_resource_group.rg.location
-  size                  = "Standard_B2s"
+  size                  = "Standard_B1ls"
   admin_username        = "adminuser"
   admin_password        = "Pa$$word1234!"
   network_interface_ids = [azurerm_network_interface.nic01.id, ]
@@ -87,7 +88,7 @@ resource "azurerm_windows_virtual_machine" "vm01" {
     sku       = "2016-Datacenter"
     version   = "latest"
   }
-# The tags are critical in the fact that they must be identical to the way they depicted on the script to use on the runbook.
+
   tags = {
     auto_stop = "on"
   }
@@ -97,7 +98,7 @@ resource "azurerm_windows_virtual_machine" "vm02" {
   name                  = "vm02"
   resource_group_name   = azurerm_resource_group.rg.name
   location              = azurerm_resource_group.rg.location
-  size                  = "Standard_B2s"
+  size                  = "Standard_B1ls"
   admin_username        = "adminuser"
   admin_password        = "Pa$$word1234!"
   network_interface_ids = [azurerm_network_interface.nic02.id, ]
@@ -123,7 +124,7 @@ resource "azurerm_windows_virtual_machine" "vm03" {
   name                  = "vm03"
   resource_group_name   = azurerm_resource_group.rg.name
   location              = azurerm_resource_group.rg.location
-  size                  = "Standard_B2s"
+  size                  = "Standard_B1ls"
   admin_username        = "adminuser"
   admin_password        = "Pa$$word1234!"
   network_interface_ids = [azurerm_network_interface.nic03.id, ]
