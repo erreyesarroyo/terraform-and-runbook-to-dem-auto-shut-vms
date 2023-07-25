@@ -15,7 +15,7 @@ High level steps:
 
 -Import the following modules under share resources, browse the gallery and search and import one at a time: Az.Accounts and Az.Compute. Modules is on shared resources on the modules blade. 
 
--System assigned status should be on from creation. And, select subscription ->IAM ->  (on the top) _> + role assignment and follow the wizard to virtual machine contributor azure role assignment virtual machine contributor. I added Clasic VVirtual Machine Contributor and Virtual Machine contributor for good measure. The scope is also critical and may be address here or and on the script.
+-System assigned status should be on from creation. And, select automation account ->Identity on the bottom -> role assignment and follow the wizard to virtual machine contributor azure role assignment virtual machine contributor. I added Clasic VVirtual Machine Contributor and Virtual Machine contributor for good measure. The scope is also critical and may be address here or and on the script.
 
 -Select subscription on the main blade or serch on the bar, got to IAM, role assignment right next to check access and you should see the new rbac associate with the account.
 
